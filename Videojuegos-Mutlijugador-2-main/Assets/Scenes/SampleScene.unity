@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 27ea037710c94c347bcdf2f0a545d44e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aae2b6abc3ac86b4ab1bdb121759769a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0cb3bb85e061c344e868372cb6bb2345, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6a6ccd802bddae4daf2f8bbf04e7e9a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2228,7 +2228,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1504958330}
-    PlayerPrefab: {fileID: 7950338278464325918, guid: 2282af2b5ef5f3149bb8261c4c631be5, type: 3}
+    PlayerPrefab: {fileID: 7306341541625173737, guid: 824a8171c7f3be3488e5b6219d8a5cc0, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 3ee95c5db3d1d234b8b96be92f3201d8, type: 2}

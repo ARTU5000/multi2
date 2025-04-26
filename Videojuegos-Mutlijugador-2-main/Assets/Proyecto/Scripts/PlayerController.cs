@@ -51,7 +51,7 @@ public class PlayerController : NetworkBehaviour
                 if (mag > 0)
                 {
                     //transform.forward = desiredDirection;
-                    //Interpolar entre la rotación actual y la desesda
+                    //Interpolar entre la rotaciï¿½n actual y la desesda
 
                     Quaternion q = Quaternion.LookRotation(desiredDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
