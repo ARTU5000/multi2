@@ -10,6 +10,8 @@ public class PlayerController : NetworkBehaviour
     //salud del jugador
     //public int health = 100;
 
+    GameManager gameManager;
+
     //networkvariable para replicar la vida
     NetworkVariable<int> health = new NetworkVariable<int> (100,NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
@@ -20,6 +22,11 @@ public class PlayerController : NetworkBehaviour
     public AudioClip DeathSound;
     AudioSource audioSource;
     Animator animator;
+
+    [Header("Camera")]
+    public Vector3 cameraOffset = new Vector3(0, 4, -3);
+    public Vector3 cameraViewOffset = new Vector3(0, 1.5f, 0);
+    Camera cam;
 
     public override void OnNetworkSpawn()
     {
@@ -34,6 +41,17 @@ public class PlayerController : NetworkBehaviour
         hud = GameObject.Find("GameManager").GetComponent<UiManager>();
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        transform.position = gameManager.Spawn();
+
+        //Asignar camara
+        if (IsOwner)
+        {
+            cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            cam.transform.position = transform.position + cameraOffset;
+            cam.transform.LookAt(transform.position + cameraViewOffset);
+        }
     }
 
     // Update is called once per frame
@@ -65,7 +83,7 @@ public class PlayerController : NetworkBehaviour
                 
 
                 //Prueba del sistema, de vida
-                if (Input.GetKeyDown(KeyCode.T))
+                if (Input.GetKeyDown(KeyCode.K))
                 {
                     TakeDamage(5);
                 }
@@ -74,6 +92,10 @@ public class PlayerController : NetworkBehaviour
             
 
             hud.labelHealth.text = health.Value.ToString();
+
+
+            cam.transform.position = transform.position + cameraOffset;
+            cam.transform.LookAt(transform.position + cameraViewOffset);
         }
     }
 
@@ -119,7 +141,7 @@ public class PlayerController : NetworkBehaviour
     public void OnDeath()
     {
         //efectos
-        Debug.Log(name + " me muero");
+        Debug.Log(name + " se fue al lobby");
         audioSource.clip = DeathSound;
         audioSource.Play();
         animator.SetBool("dead", true);
