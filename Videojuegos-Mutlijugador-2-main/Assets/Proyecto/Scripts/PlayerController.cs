@@ -28,6 +28,8 @@ public class PlayerController : NetworkBehaviour
     Animator animator;
     NetworkAnimator NAnimator;
 
+    public int nameID;
+
     [Header("Camera")]
     public Vector3 cameraOffset = new Vector3(0, 4, -3);
     public Vector3 cameraViewOffset = new Vector3(0, 1.5f, 0);
@@ -64,6 +66,7 @@ public class PlayerController : NetworkBehaviour
             cam.transform.position = transform.position + cameraOffset;
             cam.transform.LookAt(transform.position + cameraViewOffset);
         }
+        nameID = hud.selectedNameIndex;
         CreatePlayerNameHUD();
     }
 
@@ -135,6 +138,7 @@ public class PlayerController : NetworkBehaviour
         {
             Camera mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
             playername.transform.position = mainCam.WorldToScreenPoint(transform.position + new Vector3(0, 1.2f, 0));
+            playername.text = hud.namesList[nameID];
         }
     }
 
