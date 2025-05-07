@@ -28,7 +28,7 @@ public class PlayerController : NetworkBehaviour
     Animator animator;
     NetworkAnimator NAnimator;
 
-    public int nameID;
+    //public int nameID;
 
     [Header("Camera")]
     public Vector3 cameraOffset = new Vector3(0, 4, -3);
@@ -40,6 +40,8 @@ public class PlayerController : NetworkBehaviour
     public Transform weaponSocket;
     public float weaponCadence = 0.8f;
     float lastShotTimer = 0;
+
+    NetworkVariable<int> nameID = new NetworkVariable<int> (0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
 
     public override void OnNetworkSpawn()
     {
@@ -65,8 +67,10 @@ public class PlayerController : NetworkBehaviour
             cam = GameObject.Find("Main Camera").GetComponent<Camera>();
             cam.transform.position = transform.position + cameraOffset;
             cam.transform.LookAt(transform.position + cameraViewOffset);
+
+            SetNameIDRPC(hud.selectedNameIndex);
         }
-        nameID = hud.selectedNameIndex;
+        //nameID = hud.selectedNameIndex;
         CreatePlayerNameHUD();
     }
 
@@ -138,7 +142,7 @@ public class PlayerController : NetworkBehaviour
         {
             Camera mainCam = GameObject.Find("Main Camera").GetComponent<Camera>();
             playername.transform.position = mainCam.WorldToScreenPoint(transform.position + new Vector3(0, 1.2f, 0));
-            playername.text = hud.namesList[nameID];
+            playername.text = hud.namesList[nameID.Value];
         }
     }
 
@@ -229,5 +233,11 @@ public class PlayerController : NetworkBehaviour
             proj.GetComponent<NetworkObject>().Spawn();
             lastShotTimer = 0;
         }
+    }
+
+    [Rpc(SendTo.Server)]
+    public void SetNameIDRPC(int idx)
+    {
+        nameID.Value = idx;
     }
 }
