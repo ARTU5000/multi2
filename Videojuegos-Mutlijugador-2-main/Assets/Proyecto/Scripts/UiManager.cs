@@ -18,7 +18,7 @@ public class UiManager : MonoBehaviour
 
     public List<string> namesList = new List<string>();
     public int selectedNameIndex { get { return namesSelector.value; } }
-
+    public int selectedHat;
     public struct NamesData
     {
         public string[] names;
@@ -88,5 +88,9 @@ public class UiManager : MonoBehaviour
         NetworkManager.Singleton.StartClient();
     } 
 
-        
+    public void OnButtonHat(int idx)
+    {
+        selectedHat = idx;
+        Debug.Log(idx);
+    }
 }

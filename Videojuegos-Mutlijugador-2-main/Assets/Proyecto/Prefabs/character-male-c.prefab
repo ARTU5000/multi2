@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4309204180264719041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5745284571928369469}
+  m_Layer: 0
+  m_Name: hatSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5745284571928369469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4309204180264719041}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8107377657365787309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4506511305890576398
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +120,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8891244130364874969, guid: 9583dbbc2a97d2e4dba3c1e13817d645, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1561542450488483692}
+    - targetCorrespondingSourceObject: {fileID: 1812433027226884373, guid: 9583dbbc2a97d2e4dba3c1e13817d645, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5745284571928369469}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9583dbbc2a97d2e4dba3c1e13817d645, type: 3}
       insertIndex: -1
@@ -170,6 +204,12 @@ MonoBehaviour:
   cameraViewOffset: {x: 0, y: 1.5, z: 0}
   proyectilePrefab: {fileID: 2940020646084161774, guid: a774ec55b213b744cb03e4d54c031870, type: 3}
   weaponSocket: {fileID: 1561542450488483692}
+  weaponCadence: 0.8
+  hatSocket: {fileID: 5745284571928369469}
+  prefabsHats:
+  - {fileID: 6775156332484444418, guid: 1a30762d86c1600419a025673583694a, type: 3}
+  - {fileID: 1891558552429117232, guid: 69a053b3e0c18de42b761d7826b385c7, type: 3}
+  - {fileID: 3668241370122073592, guid: 8c34a4288b8bf33469781914a5368924, type: 3}
 --- !u!114 &6741004838772301979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,3 +430,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &8107377657365787309 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1812433027226884373, guid: 9583dbbc2a97d2e4dba3c1e13817d645, type: 3}
+  m_PrefabInstance: {fileID: 7612278788506954680}
+  m_PrefabAsset: {fileID: 0}

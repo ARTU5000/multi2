@@ -3,6 +3,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using Unity.Netcode.Components;
 using TMPro;
+using System.Collections.Generic;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -41,13 +42,21 @@ public class PlayerController : NetworkBehaviour
     public float weaponCadence = 0.8f;
     float lastShotTimer = 0;
 
+    [Header("accesories")]
+    public Transform hatSocket;
+    public List<GameObject> prefabsHats = new List<GameObject>();
+    bool hatSpawned = false;
+
     NetworkVariable<int> nameID = new NetworkVariable<int> (0,NetworkVariableReadPermission.Everyone,NetworkVariableWritePermission.Server);
+    NetworkVariable<int> hatID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public override void OnNetworkSpawn()
     {
         Debug.Log("Hola mundo soy un " + (IsClient? "cliente" : "servidor"));
         Debug.Log("IsClient = " + IsClient + ", IsServer = " + IsServer + ", IsHost = " + IsHost);
         Debug.Log(name + " Is owner " + IsOwner);
+
+        hatID.OnValueChanged += SpawnHat;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -69,9 +78,28 @@ public class PlayerController : NetworkBehaviour
             cam.transform.LookAt(transform.position + cameraViewOffset);
 
             SetNameIDRPC(hud.selectedNameIndex);
+            SetHatIDRPC(hud.selectedHat);
+        }
+
+        if (!IsOwner)
+        {
+            SpawnHat(0, hatID.Value);
         }
         //nameID = hud.selectedNameIndex;
         CreatePlayerNameHUD();
+    }
+
+    void SpawnHat(int old, int newVal)
+    {
+        if (hatSpawned)
+        {
+            if (newVal != old) 
+            {
+                Destroy(hatSocket.GetChild(0).gameObject);
+                hatSpawned = false;
+            }
+        }
+        GameObject hat = Instantiate(prefabsHats[hatID.Value], hatSocket.position, hatSocket.rotation, hatSocket);
     }
 
     void CreatePlayerNameHUD()
@@ -239,5 +267,11 @@ public class PlayerController : NetworkBehaviour
     public void SetNameIDRPC(int idx)
     {
         nameID.Value = idx;
+    }
+
+    [Rpc(SendTo.Server)]
+    public void SetHatIDRPC(int idx)
+    {
+        hatID.Value = idx;
     }
 }
